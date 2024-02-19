@@ -1,37 +1,37 @@
 class Square {
-  private int x;
-  private int y;
+  	private int side;
 
-  public Square(int x, int y) {
-    this.x = x;
-    this.y = y;
-  }
-  public int getX() {
-    return x;
-  }
-  public int getY() {
-    return y;
-  }
-  public int getSum(){
-    return x + y;
-  }
-  public int getArea() {
-    return x * y;
-  }
-  public int getPerimeter() {
-    return 2 * (x + y);
-  }
+  	public Square(int side) {
+    	this.side = side;
+  	}
+
+	public void setSide(int newSide) {
+		this.side = newSide;
+
+		System.out.println("Changed side to " +newSide +" successfully!");
+		return;
+	}
+
+  	public int getArea() {
+  	  	return side * side;
+  	}
+
+  	public int getPerimeter() {
+  	  	return 2 * (side + side);
+  	}
 }
 
 
 public class Main {
-  public static void main(String[] args) {
-     Square square = new Square(103, 12);
+  	public static void main(String[] args) {
+     	Square square = new Square(15);
 
-     System.out.println("The Sum of " +square.getX() +" and " +square.getY() +" is " +square.getSum());
+    	System.out.println("The Area of the square is " +square.getArea());
+		System.out.println("The Area of the square is " +square.getPerimeter());
 
-    System.out.println("The Area of " +square.getX() +" and " +square.getY() +" is " +square.getArea() +"m");
+		square.setSide(5);
 
-  System.out.println("The Perimeter of " +square.getX() +" and " +square.getY() +" is " +square.getPerimeter() +"m");
-   }
+		System.out.println("The Area of the square is " +square.getArea());
+		System.out.println("The Area of the square is " +square.getPerimeter());
+   	}
 }
