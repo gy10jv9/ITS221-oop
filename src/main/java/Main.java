@@ -1,14 +1,27 @@
-// import static org.junit.jupiter.api.Assertions.assertEquals;
+class Square {
+  private int x;
+  private int y;
 
-// import org.junit.jupiter.api.Test;
+  public Square(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+  public int getX() {
+    return x;
+  }
+  public int getY() {
+    return y;
+  }
+  public int getSum(){
+    return x + y;
+  }
+}
+
 
 public class Main {
   public static void main(String[] args) {
-    System.out.println("Hello world!");
-  }
+     Square square = new Square(103, 12);
 
-  // @Test
-  // void addition() {
-  //     assertEquals(2, 1 + 1);
-  // }
+     System.out.println("The Sum of " +square.getX() +" and " +square.getY() +" is " +square.getSum());
+   }
 }
