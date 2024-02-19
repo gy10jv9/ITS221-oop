@@ -15,6 +15,12 @@ class Square {
   public int getSum(){
     return x + y;
   }
+  public int getArea() {
+    return x * y;
+  }
+  public int getPerimeter() {
+    return 2 * (x + y);
+  }
 }
 
 
@@ -23,5 +29,9 @@ public class Main {
      Square square = new Square(103, 12);
 
      System.out.println("The Sum of " +square.getX() +" and " +square.getY() +" is " +square.getSum());
+
+    System.out.println("The Area of " +square.getX() +" and " +square.getY() +" is " +square.getArea() +"m");
+
+  System.out.println("The Perimeter of " +square.getX() +" and " +square.getY() +" is " +square.getPerimeter() +"m");
    }
 }
