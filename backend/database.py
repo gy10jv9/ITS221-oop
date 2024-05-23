@@ -5,7 +5,7 @@ engine = create_engine("sqlite:///backend/db_todo.db", echo=True)
 Base = declarative_base()
 
 class Todo(Base):
-	__tablename__ = "todo"
+	__tablename__ = "tbl_todo"
 	
 	id = Column(Integer, primary_key=True)
 	name = Column(String)
