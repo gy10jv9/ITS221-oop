@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 engine = create_engine("sqlite:///backend/db_todo.db", echo=True)
 Base = declarative_base()
 
-class User(Base):
+class Todo(Base):
 	__tablename__ = "todo"
 	
 	id = Column(Integer, primary_key=True)
