@@ -20,7 +20,7 @@ def menu(choice):
         case 2:
             print("Searching...")
 
-        case 3:
+        case 3: #update.py :P
             todo_id = int(input("Enter the ID of the todo item you want to update: "))
             new_todo = input("Enter the updated task: ")
             update_todo(todo_id, new_todo)
