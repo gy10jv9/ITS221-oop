@@ -1,5 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 from backend.database import Todo, engine
+from datetime import datetime
 
 def menu(choice):
     match choice:
@@ -9,11 +10,12 @@ def menu(choice):
             
             name = input("Enter your name: ")
             todo = input("Enter your task: ")
-            date = input("Enter your due date: ")
-            time = input("Enter your due time: ")
+            date = datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date()
+            # time = input("Enter your due time: ")
             
-            user = Todo(name=name, todo=todo, date=date, time=time)
+            user = Todo(name=name, todo=todo, date=date)
             session.add(user)
+            session.commit()
             
             
         case 2:
