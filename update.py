@@ -1,15 +1,16 @@
-#update
 from sqlalchemy.orm import sessionmaker
-from app import User, engine
+from backend.database import Todo, engine
 
-Session = sessionmaker(bind=engine)
-session = Session()
-
-users = session.query(User).filter_by(ssn=2).one_or_none()
-
-print(f"From: ", users.firstname)
-
-users.firstname = "Gwen"
-print(f"Changed to: ",users.firstname)
-
-session.commit()
+def update_todo(todo_id, new_todo):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    
+    todo = session.query(Todo).filter_by(id=todo_id).one_or_none()
+    
+    if not todo:
+        print("Todo item not found.")
+    else:
+        todo.todo = new_todo
+        
+        session.commit()
+        print("Todo item updated successfully!")

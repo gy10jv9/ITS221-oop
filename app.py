@@ -1,6 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from backend.database import Todo, engine
 from datetime import datetime
+from update import update_todo
 
 def menu(choice):
     match choice:
@@ -20,14 +21,18 @@ def menu(choice):
             
         case 2:
             print("Searching...")
+
         case 3:
+            todo_id = int(input("Enter the ID of the todo item you want to update: "))
+            new_todo = input("Enter the updated task: ")
+            update_todo(todo_id, new_todo)
+        case 4:
             print("Exiting...")
                         
 choice = input("[1] Add todo\n"
             "[2] View all todo list\n"
-            "[3] Search\n"
+            "[3] Update todo\n"
             "[4] Exit\n"
             "Enter number of your choice: ")
 
 menu(int(choice))
-    
