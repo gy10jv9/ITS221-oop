@@ -12,7 +12,6 @@ def menu(choice):
             name = input("Enter your name: ")
             todo = input("Enter your task: ")
             date = datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date()
-            # time = input("Enter your due time: ")
             
             user = Todo(name=name, todo=todo, date=date)
             session.add(user)
