@@ -17,7 +17,6 @@ def menu(choice):
             session.add(user)
             session.commit()
             
-            
         case 2:
             print("Searching...")
 
