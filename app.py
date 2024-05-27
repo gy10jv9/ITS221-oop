@@ -12,8 +12,9 @@ def menu(choice):
             name = input("Enter your name: ")
             todo = input("Enter your task: ")
             date = datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date()
+            time = datetime.strptime(input("Enter your due time (HH:MM:SS): "), '%H:%M:%S').time()
             
-            user = Todo(name=name, todo=todo, date=date)
+            user = Todo(name=name, todo=todo, date=date, time=time)
             session.add(user)
             session.commit()
             
@@ -24,6 +25,7 @@ def menu(choice):
             todo_id = int(input("Enter the ID of the todo item you want to update: "))
             new_todo = input("Enter the updated task: ")
             update_todo(todo_id, new_todo)
+            
         case 4:
             print("Exiting...")
                         
