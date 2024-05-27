@@ -24,15 +24,19 @@ def menu(choice):
         case 3: #update.py :P
             todo_id = int(input("Enter the ID of the todo item you want to update: "))
             new_todo = input("Enter the updated task: ")
+            
             update_todo(todo_id, new_todo)
             
         case 4:
             print("Exiting...")
-                        
-choice = input("[1] Add todo\n"
-            "[2] View all todo list\n"
-            "[3] Update todo\n"
-            "[4] Exit\n"
-            "Enter number of your choice: ")
+            exit
 
-menu(int(choice))
+while True:
+    print("[1] Add todo\n"
+        "[2] View all todo list\n"
+        "[3] Update todo\n"
+        "[4] Exit\n") 
+    choice = input("Enter number of your choice: ")
+
+    menu(int(choice))
+
