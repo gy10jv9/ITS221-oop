@@ -18,7 +18,6 @@ def menu(choice):
             Task_Obj = Task()
             Task_Obj.add(task)
             
-            
         case 2:
             Session = sessionmaker(bind=engine)
             session = Session()
