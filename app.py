@@ -1,22 +1,23 @@
-from sqlalchemy.orm import sessionmaker
-from backend.database import Tbl_Todo, engine
+from backend.database import Task, Author
 from datetime import datetime
 from update import update_todo
-from classes.Task import Task
 
 def menu(choice):
-    Task_Obj = Task()
-    
     match choice:
         case 1:
+            
+            Author_Obj = Author()
+            author_id = Author_Obj.add(input("Enter your name: "))
+            
             task = {
-                'author': input("Enter your name: "),
+                'author_id': author_id,
                 'task': input("Enter your task: "),
                 'date': datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date(),
                 'time': datetime.strptime(input("Enter your due time (HH:MM): "), '%H:%M').time(),
                 'isdone': False
             }
-            
+
+            Task_Obj = Task()
             Task_Obj.add(task)
             
         case 2:

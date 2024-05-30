@@ -6,7 +6,6 @@ session = Session()
 
 class Task:
     def add(self, payload):
-        # task = Tbl_Todo(author=payload["author"], todo=payload["todo"], date=payload["date"], time=payload["time"], isdone=False)
         author = session.query(Tbl_Authors).filter_by(author=payload["author"]).first()
         if not author:
             author = Tbl_Authors(author=payload["author"])

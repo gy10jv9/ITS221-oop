@@ -1,21 +1,15 @@
 from sqlalchemy import create_engine, Column, String, Integer, Date, Time, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-engine = create_engine("sqlite:///backend/db_todo.db", echo=True)
+engine = create_engine("sqlite:///backend/db_todo.db", echo=False)
 Base = declarative_base()
 
-class Tbl_Todo(Base):
-	__tablename__ = "tbl_todo"
-	
-	id = Column(Integer, primary_key=True)
-	author = Column(String)
-	todo = Column(String)
-	date = Column(Date)
-	time = Column(Time)
-	isdone = Column(Boolean)
+Session = sessionmaker(bind=engine)
+session = Session()
 
-class Tbl_Todo2(Base):
-	__tablename__ = "tbl_todo2"
+class Task(Base):
+	__tablename__ = "tbl_todo"
 	
 	id = Column(Integer, primary_key=True)
 	author_id = Column(Integer, ForeignKey('tbl_authors.id'))
@@ -23,11 +17,27 @@ class Tbl_Todo2(Base):
 	date = Column(Date)
 	time = Column(Time)
 	isdone = Column(Boolean)
+ 
+	def add(self, payload):
+		todo = Task(author_id=payload["author_id"], task=payload["task"], date=payload["date"], time=payload["time"], isdone=False)
+		session.add(todo)
+		session.commit()
 
-class Tbl_Authors(Base):
+
+class Author(Base):
 	__tablename__ = "tbl_authors"
 	
 	id = Column(Integer, primary_key=True)
 	author = Column(String)
+ 
+	def add(self, payload):
+		author = session.query(Author).filter_by(author=payload).first()
+		if not author:
+			author = Author(author=payload)
+			session.add(author)
+			session.commit()
+   
+		return author.id
+	
 
 Base.metadata.create_all(engine)
