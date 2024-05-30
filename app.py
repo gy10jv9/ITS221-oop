@@ -11,9 +11,9 @@ def menu(choice):
         case 1:
             task = {
                 'author': input("Enter your name: "),
-                'todo': input("Enter your task: "),
+                'task': input("Enter your task: "),
                 'date': datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date(),
-                'time': datetime.strptime(input("Enter your due time (HH:MM): "), '%H:%M:%S').time(),
+                'time': datetime.strptime(input("Enter your due time (HH:MM): "), '%H:%M').time(),
                 'isdone': False
             }
             

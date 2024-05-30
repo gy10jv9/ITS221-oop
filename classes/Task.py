@@ -1,13 +1,20 @@
 from sqlalchemy.orm import sessionmaker
-from backend.database import Tbl_Todo, engine
+from backend.database import Tbl_Todo, Tbl_Authors, Tbl_Todo2, engine
 
 Session = sessionmaker(bind=engine)
 session = Session()
 
 class Task:
     def add(self, payload):
-        task = Tbl_Todo(author=payload["author"], todo=payload["todo"], date=payload["date"], time=payload["time"], isdone=False)
-        session.add(task)
+        # task = Tbl_Todo(author=payload["author"], todo=payload["todo"], date=payload["date"], time=payload["time"], isdone=False)
+        author = session.query(Tbl_Authors).filter_by(author=payload["author"]).first()
+        if not author:
+            author = Tbl_Authors(author=payload["author"])
+            session.add(author)
+            session.commit()
+
+        todo = Tbl_Todo2(author_id=author.id, task=payload["task"], date=payload["date"], time=payload["time"], isdone=False)
+        session.add(todo)
         session.commit()
         
     def viewall(self):
