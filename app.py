@@ -14,7 +14,7 @@ def menu(choice):
             date = datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date()
             time = datetime.strptime(input("Enter your due time (HH:MM:SS): "), '%H:%M:%S').time()
             
-            user = Todo(name=name, todo=todo, date=date, time=time)
+            user = Todo(name=name, todo=todo, date=date, time=time, isDone=False)
             session.add(user)
             session.commit()
             
