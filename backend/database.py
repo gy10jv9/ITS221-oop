@@ -12,6 +12,6 @@ class Todo(Base):
 	todo = Column(String)
 	date = Column(Date)
 	time = Column(Time)
-	isDone = Column(Boolean)
+	isdone = Column(Boolean)
 
 Base.metadata.create_all(engine)

@@ -14,12 +14,23 @@ def menu(choice):
             date = datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date()
             time = datetime.strptime(input("Enter your due time (HH:MM:SS): "), '%H:%M:%S').time()
             
-            user = Todo(name=name, todo=todo, date=date, time=time, isDone=False)
+            user = Todo(name=name, todo=todo, date=date, time=time, isdone=False)
             session.add(user)
             session.commit()
             
         case 2:
-            print("Searching...")
+            Session = sessionmaker(bind=engine)
+            session = Session()
+            
+            todos = session.query(Todo).all()
+            for todo in todos:
+                print(f"ID: {todo.id}")
+                print(f"Name: {todo.name}")
+                print(f"Task: {todo.todo}")
+                print(f"Due Date: {todo.date}")
+                print(f"Due Time: {todo.time}")
+                print(f"Is Done: {todo.isdone}")
+                print("--------------------")
 
         case 3: #update.py :P
             todo_id = int(input("Enter the ID of the todo item you want to update: "))
@@ -28,8 +39,7 @@ def menu(choice):
             update_todo(todo_id, new_todo)
             
         case 4:
-            print("Exiting...")
-            exit
+            exit("Exiting...")
 
 while True:
     print("[1] Add todo\n"
