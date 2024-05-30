@@ -2,21 +2,22 @@ from sqlalchemy.orm import sessionmaker
 from backend.database import Todo, engine
 from datetime import datetime
 from update import update_todo
+from classes.Task import Task
 
 def menu(choice):
     match choice:
         case 1:
-            Session = sessionmaker(bind=engine)
-            session = Session()
+            task = {
+                'name': input("Enter your name: "),
+                'todo': input("Enter your task: "),
+                'date': datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date(),
+                'time': datetime.strptime(input("Enter your due time (HH:MM:SS): "), '%H:%M:%S').time(),
+                'isdone': False
+            }
             
-            name = input("Enter your name: ")
-            todo = input("Enter your task: ")
-            date = datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date()
-            time = datetime.strptime(input("Enter your due time (HH:MM:SS): "), '%H:%M:%S').time()
+            Task_Obj = Task()
+            Task_Obj.add(task)
             
-            user = Todo(name=name, todo=todo, date=date, time=time, isdone=False)
-            session.add(user)
-            session.commit()
             
         case 2:
             Session = sessionmaker(bind=engine)
@@ -24,13 +25,13 @@ def menu(choice):
             
             todos = session.query(Todo).all()
             for todo in todos:
-                print(f"ID: {todo.id}")
-                print(f"Name: {todo.name}")
-                print(f"Task: {todo.todo}")
-                print(f"Due Date: {todo.date}")
-                print(f"Due Time: {todo.time}")
-                print(f"Is Done: {todo.isdone}")
-                print("--------------------")
+                print(f"ID: {todo.id}"
+                    f"Name: {todo.name}"
+                    f"Task: {todo.todo}"
+                    f"Due Date: {todo.date}"
+                    f"Due Time: {todo.time}"
+                    f"Is Done: {todo.isdone}"
+                    "--------------------")
 
         case 3: #update.py :P
             todo_id = int(input("Enter the ID of the todo item you want to update: "))
