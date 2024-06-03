@@ -1,43 +1,39 @@
-from backend.database import Task, Author
+from sqlalchemy.orm import sessionmaker
+from backend.database import Todo, engine
 from datetime import datetime
 from update import update_todo
 
 def menu(choice):
     match choice:
         case 1:
+            Session = sessionmaker(bind=engine)
+            session = Session()
             
-            Author_Obj = Author()
-            author_id = Author_Obj.add(input("Enter your name: "))
+            name = input("Enter your name: ")
+            task = input("Enter your task: ")
+            date = datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date()
             
-            task = {
-                'author_id': author_id,
-                'task': input("Enter your task: "),
-                'date': datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date(),
-                'time': datetime.strptime(input("Enter your due time (HH:MM): "), '%H:%M').time(),
-                'isdone': False
-            }
-
-            Task_Obj = Task()
-            Task_Obj.add(task)
+            user = Todo(name=name, todo=task, date=date)
+            session.add(user)
+            session.commit()
             
         case 2:
-            Task_Obj.viewall()
+            print("Searching...")
 
-        case 3: #update.py :P
+        case 3:
             todo_id = int(input("Enter the ID of the todo item you want to update: "))
-            new_todo = input("Enter the updated task: ")
-            
-            update_todo(todo_id, new_todo)
+            new_name = input("Enter the updated name: ")
+            new_task = input("Enter the updated task: ")
+            new_date = datetime.strptime(input("Enter the updated due date (YYYY-MM-DD): "), '%Y-%m-%d').date()
+            update_todo(todo_id, new_name, new_task, new_date)
             
         case 4:
-            exit("Exiting...")
+            print("Exiting...")
+                        
+choice = input("[1] Add todo\n"
+            "[2] View all todo list\n"
+            "[3] Update todo\n"
+            "[4] Exit\n"
+            "Enter number of your choice: ")
 
-while True:
-    print("[1] Add todo\n"
-        "[2] View all todo list\n"
-        "[3] Update todo\n"
-        "[4] Exit\n") 
-    choice = input("Enter number of your choice: ")
-
-    menu(int(choice))
-
+menu(int(choice))
