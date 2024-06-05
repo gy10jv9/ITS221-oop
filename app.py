@@ -41,7 +41,7 @@ def menu(choice):
                     "[3] Search by date\n"
                     "[4] Exit\n")
      
-                choice = input("Enter number of your choice: ")
+                choice = int(input("Enter number of your choice: "))
                 Task_Obj = Task()
                 
                 match choice:
