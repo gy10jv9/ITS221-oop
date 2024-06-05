@@ -22,7 +22,17 @@ class Task(Base):
 		todo = Task(author_id=payload["author_id"], task=payload["task"], date=payload["date"], time=payload["time"], isdone=False)
 		session.add(todo)
 		session.commit()
-
+  
+    def delete(self, task_id):
+        task = session.query(Task).filter_by(id=task_id).first()
+        if task:
+            session.delete(task)
+            session.commit()
+            print(f"Task with ID {task_id} has been deleted.")
+        else:
+            print(f"Task with ID {task_id} not found") 
+            
+     
 
 class Author(Base):
 	__tablename__ = "tbl_authors"
