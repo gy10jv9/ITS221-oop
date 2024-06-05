@@ -28,15 +28,24 @@ def menu(choice):
             new_todo = input("Enter the updated task: ")
             
             update_todo(todo_id, new_todo)
+          
+        case 4: #delete.py :P
+            todo_id = int(input("Enter the ID of the todo item you want to delete: "))
+            delete_todo(todo_id)  
             
-        case 4:
+        case 5: # para sa search
+            exit("Exiting...")
+            
+        case 6: # para sa search
             exit("Exiting...")
 
 while True:
     print("[1] Add todo\n"
         "[2] View all todo list\n"
         "[3] Update todo\n"
-        "[4] Exit\n") 
+        "[4} Delete todo\n"
+        "[5] Exit\n")
+     
     choice = input("Enter number of your choice: ")
 
     menu(int(choice))
