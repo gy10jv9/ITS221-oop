@@ -1,6 +1,7 @@
 from backend.database import Task, Author
 from datetime import datetime
 from update import update_todo
+from delete import delete_todo
 
 def menu(choice):
     match choice:
@@ -28,8 +29,12 @@ def menu(choice):
             new_todo = input("Enter the updated task: ")
             
             update_todo(todo_id, new_todo)
-            
-        case 4:
+        
+        case 4: #delete.py
+            todo_id = int(input("Enter the ID of the todo item you want to delete: "))
+            delete_todo(todo_id)
+                 
+        case 5:
             exit("Exiting...")
 
 while True:
