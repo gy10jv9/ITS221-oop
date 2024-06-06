@@ -23,16 +23,35 @@ class Task(Base):
 		session.add(todo)
 		session.commit()
   
-    def delete(self, task_id):
-        task = session.query(Task).filter_by(id=task_id).first()
-        if task:
-            session.delete(task)
-            session.commit()
-            print(f"Task with ID {task_id} has been deleted.")
-        else:
-            print(f"Task with ID {task_id} not found") 
+	def viewall(self):
+		tasks = session.query(Task).all()
+		for task in tasks:
+			print(f"ID: {task.id}\nAuthor ID: {task.author_id}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
+
+	def delete(self, task_id):
+		task = session.query(Task).filter_by(id=task_id).first()
+		if task:
+			session.delete(task)
+			session.commit()
+			print(f"Task with ID {task_id} has been deleted.")
+		else:
+			print(f"Task with ID {task_id} not found") 
             
-     
+	def searchbyTask(self, search_term):
+		tasks = session.query(Task).filter(Task.task.contains(search_term)).all()
+		for task in tasks:
+			print(f"ID: {task.id}\nAuthor ID: {task.author_id}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
+    
+	def searchbyAuthor(self, author_id):
+		tasks = session.query(Task).filter(Task.author_id == author_id).all()
+		for task in tasks:
+			print(f"ID: {task.id}\nAuthor ID: {task.author_id}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
+
+	def searchbyDate(self, search_date):
+		tasks = session.query(Task).filter(Task.date == search_date).all() 
+		for task in tasks:
+			print(f"ID: {task.id}\nAuthor ID: {task.author_id}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
+
 
 class Author(Base):
 	__tablename__ = "tbl_authors"
