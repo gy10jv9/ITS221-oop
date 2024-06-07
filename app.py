@@ -25,10 +25,19 @@ def menu(choice):
 
         case 3:
             todo_id = int(input("Enter the ID of the todo item you want to update: "))
-            new_name = input("Enter the updated name: ")
             new_task = input("Enter the updated task: ")
             new_date = datetime.strptime(input("Enter the updated due date (YYYY-MM-DD): "), '%Y-%m-%d').date()
-            update_todo(todo_id, new_name, new_task, new_date)
+            new_time = datetime.strptime(input("Enter the updated due time (HH:MM): "), '%H:%M').time()
+            isdone = input("Is the task done? (y/n): ").lower() == 'y'
+
+            Task_Obj = Task()
+            Task_Obj.update({
+                'id': todo_id,
+                'task': new_task,
+                'date': new_date,
+                'time': new_time,
+                'isdone': isdone
+            })
           
         case 4: #delete.py :P
             Task_Obj = Task()

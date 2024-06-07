@@ -26,7 +26,20 @@ class Task(Base):
 	def viewall(self):
 		tasks = session.query(Task).all()
 		for task in tasks:
-			print(f"ID: {task.id}\nAuthor ID: {task.author_id}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
+			author = session.query(Author).filter_by(id=task.author_id).first()
+			print(f"ID: {task.id}\nAuthor: {author.author}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
+   
+	def update(self, payload):
+		task = session.query(Task).filter_by(id=payload['id']).one_or_none()
+		if not task:
+			print("Todo item not found.")
+		else:
+			task.task = payload['task']
+			task.date = payload['date']
+			task.time = payload['time']
+			task.isdone = payload['isdone']
+			session.commit()
+			print("Todo item updated successfully!")
 
 	def delete(self, task_id):
 		task = session.query(Task).filter_by(id=task_id).first()
@@ -40,17 +53,23 @@ class Task(Base):
 	def searchbyTask(self, search_term):
 		tasks = session.query(Task).filter(Task.task.contains(search_term)).all()
 		for task in tasks:
-			print(f"ID: {task.id}\nAuthor ID: {task.author_id}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
-    
-	def searchbyAuthor(self, author_id):
-		tasks = session.query(Task).filter(Task.author_id == author_id).all()
-		for task in tasks:
-			print(f"ID: {task.id}\nAuthor ID: {task.author_id}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
+			author = session.query(Author).filter_by(id=task.author_id).first()
+			print(f"ID: {task.id}\nAuthor: {author.author}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
+	
+	def searchbyAuthor(self, author):
+		author = session.query(Author).filter_by(author=author).first()
+		if author:
+			tasks = session.query(Task).filter(Task.author_id == author.id).all()
+			for task in tasks:
+				print(f"ID: {task.id}\nAuthor: {author.author}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
+		else:
+			print(f"Author {author} not found")
 
 	def searchbyDate(self, search_date):
 		tasks = session.query(Task).filter(Task.date == search_date).all() 
 		for task in tasks:
-			print(f"ID: {task.id}\nAuthor ID: {task.author_id}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
+			author = session.query(Author).filter_by(id=task.author_id).first()
+			print(f"ID: {task.id}\nAuthor: {author.author}\nTask: {task.task}\nDate: {task.date}\nTime: {task.time}\nIs Done: {task.isdone}\n")
 
 
 class Author(Base):
