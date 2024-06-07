@@ -1,6 +1,5 @@
 from backend.database import Task, Author
 from datetime import datetime
-from update import update_todo
 
 def menu(choice):
     match choice:
@@ -45,24 +44,24 @@ def menu(choice):
             Task_Obj.delete(todo_id)  
             
         case 5: # para sa search
-                print("[1] Search by task\n"
-                    "[2] Search by author\n"
-                    "[3] Search by date\n"
-                    "[4] Exit\n")
-     
-                choice = int(input("Enter number of your choice: "))
-                Task_Obj = Task()
-                
-                match choice:
-                    case 1: 
-                        task = input("Enter task to search: ")
-                        Task_Obj.searchbyTask(task)
-                    case 2:
-                        author = input("Enter author to search: ")
-                        Task_Obj.searchbyAuthor(author)
-                    case 3:
-                        date = input("Enter date to search: ")
-                        Task_Obj.searchbyDate(date)
+            print("[1] Search by task\n"
+                "[2] Search by author\n"
+                "[3] Search by date\n"
+                "[4] Exit\n")
+    
+            choice = int(input("Enter number of your choice: "))
+            Task_Obj = Task()
+            
+            match choice:
+                case 1: 
+                    task = input("Enter task to search: ")
+                    Task_Obj.searchbyTask(task)
+                case 2:
+                    author = input("Enter author to search: ")
+                    Task_Obj.searchbyAuthor(author)
+                case 3:
+                    date = datetime.strptime(input("Enter your due date (YYYY-MM-DD): "), '%Y-%m-%d').date()
+                    Task_Obj.searchbyDate(date)
             
         case 6: # para sa search
             exit("Exiting...")
